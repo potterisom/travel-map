@@ -30,7 +30,7 @@ window.TRAVEL_CONTENT = {
       lat: 51.1694,
       lon: 71.4304,
       heart: true,
-      story: ``,
+      story: stories/astana.html,
       photos: [],
     },
     {
