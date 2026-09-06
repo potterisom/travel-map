@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101f2a" />
+    <meta
+      name="description"
+      content="Leila's travel atlas. Explore places visited, lived in, and called home."
+    />
+    <title>Places I've been · Leila Salken</title>
+    <script type="module" crossorigin src="./assets/index-CaOYMZyG.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DTlGD4Jg.css">
+  </head>
+  <body>
+    <a href="#placeSearch" class="skip-link">Skip to place search</a>
+    <header class="topbar">
+      <a href="https://potterisom.github.io/" class="author"
+        >Leila Salken <span>/ Travel atlas</span></a
+      >
+      <div class="top-actions">
+        <button id="tourButton">
+          Take a tour <span aria-hidden="true">↗</span></button
+        ><button
+          id="helpButton"
+          class="help-button"
+          aria-label="Keyboard shortcuts"
+        >
+          ?
+        </button>
+      </div>
+    </header>
+    <main class="workspace">
+      <aside class="sidebar" aria-label="Place directory and details">
+        <div id="directory" class="directory">
+          <div class="intro">
+            <p class="eyebrow">A personal geography</p>
+            <h1>Places I've been.</h1>
+            <p id="totals" class="totals"></p>
+          </div>
+          <div class="search-wrap">
+            <label for="placeSearch" class="sr-only"
+              >Search cities and countries</label
+            ><input
+              type="search"
+              id="placeSearch"
+              placeholder="Find a city or country"
+              autocomplete="off"
+            /><span aria-hidden="true">/</span>
+          </div>
+          <div class="directory-tabs" role="group" aria-label="Directory view">
+            <button data-list="cities" aria-pressed="true">
+              Cities <span id="cityCount"></span></button
+            ><button data-list="countries" aria-pressed="false">
+              Countries & regions <span id="countryCount"></span>
+            </button>
+          </div>
+          <div
+            id="filters"
+            class="filters"
+            role="group"
+            aria-label="Filter by country travel status"
+          >
+            <button data-filter="all" aria-pressed="true">All</button
+            ><button data-filter="origin" aria-pressed="false">Home</button
+            ><button data-filter="lived" aria-pressed="false">Lived</button
+            ><button data-filter="visited" aria-pressed="false">Visited</button>
+          </div>
+          <p id="resultStatus" class="sr-only" aria-live="polite"></p>
+          <div id="placeList" class="place-list"></div>
+          <div class="directory-foot">
+            <span class="home-heart">♥</span>
+            <span id="homeNote">Astana, always home.</span>
+          </div>
+        </div>
+        <section
+          id="detail"
+          class="detail"
+          hidden
+          aria-labelledby="detailTitle"
+        >
+          <div class="detail-top">
+            <button id="closeDetail">← All places</button
+            ><button id="shareButton" aria-label="Copy link to this city">
+              Copy link
+            </button>
+          </div>
+          <div class="detail-content">
+            <p class="eyebrow" id="detailCountry"></p>
+            <h2 id="detailTitle" tabindex="-1"></h2>
+            <p id="detailCoordinate" class="coordinate"></p>
+            <p id="detailStatus" class="detail-status"></p>
+            <div id="detailBody"></div>
+          </div>
+          <div class="detail-nav">
+            <button id="previousCity" aria-label="Previous city">←</button
+            ><span id="cityPosition"></span
+            ><button id="nextCity" aria-label="Next city">→</button>
+          </div>
+        </section>
+      </aside>
+      <section
+        id="mapPanel"
+        class="map-panel"
+        aria-label="Interactive travel map"
+      >
+        <div class="map-top">
+          <div class="view-switch" role="group" aria-label="Map projection">
+            <button id="globeButton" aria-pressed="true">Globe</button
+            ><button id="atlasButton" aria-pressed="false">Atlas</button>
+          </div>
+          <button id="resetButton" class="map-button">
+            Reset view <span aria-hidden="true">↺</span>
+          </button>
+        </div>
+        <div id="mapStage" class="map-stage">
+          <svg
+            id="map"
+            role="group"
+            aria-label="Travel map. Drag to move, pinch or use controls to zoom. Use the place directory for keyboard navigation."
+            tabindex="0"
+          >
+            <defs>
+              <radialGradient id="ocean">
+                <stop offset="0%" stop-color="#182f3e" />
+                <stop offset="100%" stop-color="#112430" />
+              </radialGradient>
+            </defs>
+            <path id="sphere" />
+            <path id="graticule" />
+            <g id="shapes"></g>
+            <g id="mapLabels" aria-hidden="true"></g>
+            <g id="markers"></g>
+          </svg>
+        </div>
+        <div id="tooltip" class="tooltip" hidden></div>
+        <div class="map-bottom">
+          <div>
+            <p id="viewEyebrow" class="eyebrow">Explore the atlas</p>
+            <h2 id="viewTitle">The world</h2>
+            <p id="mapHint" class="map-hint">Drag to rotate · Scroll to zoom</p>
+          </div>
+          <div class="zoom-controls">
+            <button id="zoomIn" aria-label="Zoom in">+</button
+            ><button id="zoomOut" aria-label="Zoom out">−</button>
+          </div>
+        </div>
+        <div class="map-footer">
+          <div class="legend">
+            <span><i class="origin"></i>Home</span
+            ><span><i class="lived"></i>Lived</span
+            ><span><i class="visited"></i>Visited</span>
+          </div>
+          <button id="creditsButton">Map credits</button>
+        </div>
+        <div id="tourBar" class="tour-bar" hidden>
+          <div>
+            <strong id="tourTitle">City tour</strong
+            ><span id="tourCount"></span>
+          </div>
+          <button id="tourPrevious" aria-label="Previous tour stop">←</button
+          ><button id="tourPlay" aria-label="Pause tour">Pause</button
+          ><button id="tourNext" aria-label="Next tour stop">→</button
+          ><button id="tourClose" aria-label="End tour">×</button>
+        </div>
+      </section>
+    </main>
+    <p id="announcement" class="toast" role="status" hidden></p>
+    <dialog id="helpDialog">
+      <form method="dialog">
+        <button class="dialog-close" aria-label="Close keyboard shortcuts">
+          ×
+        </button>
+      </form>
+      <p class="eyebrow">Getting around</p>
+      <h2>Explore at your pace.</h2>
+      <dl>
+        <div>
+          <dt>/</dt>
+          <dd>Search places</dd>
+        </div>
+        <div>
+          <dt>G / A</dt>
+          <dd>Globe / atlas</dd>
+        </div>
+        <div>
+          <dt>+ / −</dt>
+          <dd>Zoom in / out</dd>
+        </div>
+        <div>
+          <dt>Arrow keys</dt>
+          <dd>Move the focused map</dd>
+        </div>
+        <div>
+          <dt>R</dt>
+          <dd>Random city</dd>
+        </div>
+        <div>
+          <dt>W</dt>
+          <dd>Reset the view</dd>
+        </div>
+        <div>
+          <dt>Esc</dt>
+          <dd>End tour or close details</dd>
+        </div>
+      </dl>
+      <p>
+        Drag the map to move. Pinch with two fingers to zoom. The tour visits
+        cities in a geographic sequence, not travel-date order.
+      </p>
+    </dialog>
+    <dialog id="creditsDialog">
+      <form method="dialog">
+        <button class="dialog-close" aria-label="Close map credits">×</button>
+      </form>
+      <p class="eyebrow">Cartography</p>
+      <h2>About this atlas</h2>
+      <p>
+        Country outlines:
+        <a href="https://github.com/topojson/world-atlas"
+          >Natural Earth via world-atlas</a
+        >. US outlines:
+        <a href="https://github.com/PublicaMundi/MappingAPI">PublicaMundi</a>.
+        Projections: D3 Geo.
+      </p>
+      <p>
+        Colors describe my travel record. Hong Kong is tracked separately from
+        mainland China. Boundaries are for orientation and do not imply a
+        position on territorial claims.
+      </p>
+      <p id="creditsCount"></p>
+    </dialog>
+    <noscript
+      ><p class="no-script">
+        This interactive map needs JavaScript. Places include Kazakhstan, the
+        United States, the United Kingdom, Albania, Austria, Belgium, Czech
+        Republic, France, Germany, Hong Kong, Iceland, Italy, Netherlands,
+        Slovenia, Spain, Turkey, and the United Arab Emirates.
+      </p></noscript
+    >
+    <div id="startupError" class="startup-error" role="alert" hidden>
+      <h2>The map couldn't load.</h2>
+      <p id="startupMessage">Please refresh and try again.</p>
+    </div>
+    <script src="./content.js"></script>
+  </body>
+</html>
