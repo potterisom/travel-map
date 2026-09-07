@@ -18,6 +18,7 @@ window.TRAVEL_CONTENT = {
     { name: "Netherlands", status: "visited" },
     { name: "Slovenia", status: "visited" },
     { name: "Spain", status: "visited" },
+    { name: "Portugal", status: "visited" },
     { name: "Turkey", status: "visited" },
     { name: "United Arab Emirates", status: "visited" },
   ],
@@ -49,7 +50,22 @@ window.TRAVEL_CONTENT = {
       lat: 22.3193,
       lon: 114.1694,
       story: ``,
-      photos: [],
+      photos: [
+        {
+          src: "photos/hong_kong/me_with_view.jpg",
+          alt: "Me with on the way down from Victoria Peak",
+          caption: "Victoria peak has a nice view of Hong Kong!"
+        },
+        {
+          src: "photos/hong_kong/fun_man.jpg",
+          alt: "a monastery on Lantau island"
+        },
+        {
+          src:  "photos/hong_kong/friends_roller_coaster.jpg",
+          alt: "my friends and I at Ocean Park's scariest roller coaster!",
+          caption: "my friends and I at Ocean Park's scariest roller coaster!"
+        }
+      ],
     },
     {
       id: "london",
