@@ -49,7 +49,8 @@ window.TRAVEL_CONTENT = {
       country: "Hong Kong",
       lat: 22.3193,
       lon: 114.1694,
-      story: ``,
+      story: `Hong Kong was my first East Asian city. I was delighted by the amount of friction in communication I experienced there.
+      The 7/11 was very fun, although the humidity in the middle of the summer was not a highlight.`,
       photos: [
         {
           src: "photos/hong_kong/me_with_view.jpg",
@@ -157,5 +158,7 @@ window.TRAVEL_CONTENT = {
 
   // States visited without a city entry can be listed here.
   // Adding a US city also marks its state as visited.
-  visitedStates: ["Massachusetts","Alaska","California","Florida","New Hampshire","New York","New Jersey","Louisiana"],
+  visitedStates: ["Massachusetts","Alaska","California","Florida","New Hampshire",
+  "New York","New Jersey","Louisiana","Rhode Island", "Pennsylvania", "Michigan", 
+  "Vermont"]
 };
